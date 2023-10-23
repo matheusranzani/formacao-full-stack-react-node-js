@@ -1,16 +1,18 @@
-import  { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Input from '../Input';
+import { getLivros } from '../../servicos/livros';
 
-import { livros } from '../Pesquisa/dadosPesquisa';
+import imgLivro from '../../imagens/livro.png'
+import { postFavorito, deleteFavorito } from '../../servicos/favoritos';
 
 const PesquisaContainer = styled.section`
   background-image: linear-gradient(90deg, #002f52 35%, #326589 100%);
   color: #FFF;
   text-align: center;
   padding: 85px 0;
-  height: 270px;
+  height: 500px;
   width: 100%;
 `;
 
@@ -49,6 +51,21 @@ const Resultado = styled.div`
 
 export default function Pesquisa() {
   const [livrosPesquisados, setLivrosPesquisados] = useState([]);
+  const [livros, setLivros] = useState([]);
+
+  useEffect(() => {
+    const fetchLivros = async () => {
+      const livrosDaAPI = await getLivros();
+      setLivros(livrosDaAPI);
+    }
+
+    fetchLivros();
+  }, []);
+
+  async function insertFavoritos(id) {
+    await postFavorito(id);
+    alert(`Livro de id = ${id} inserido aos Favoritos!`);
+  }
 
   return (
     <PesquisaContainer>
@@ -63,9 +80,9 @@ export default function Pesquisa() {
         }}
       />
       { livrosPesquisados.map(livro => (
-        <Resultado>
+        <Resultado onClick={() => insertFavoritos(livro.id)}>
           <p>{livro.nome}</p>
-          <img src={livro.src} alt='livro'/>
+          <img src={imgLivro} alt='imagem livro'/>
         </Resultado>
       )) }
     </PesquisaContainer>

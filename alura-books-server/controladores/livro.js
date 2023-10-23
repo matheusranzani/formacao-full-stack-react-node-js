@@ -38,7 +38,7 @@ function postLivro(req, res) {
   try {
     const livroNovo = req.body;
 
-    if (req.body.nome) {
+    if (livroNovo.nome) {
       insereLivro(livroNovo);
 
       res.status(201);
@@ -76,7 +76,6 @@ function patchLivro(req, res) {
 function deleteLivro(req, res) {
   try {
     const { id } = req.params;
-
 
     if (id && Number(id)) {
       deletaLivroPorId(id);
