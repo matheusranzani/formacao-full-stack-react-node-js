@@ -1,4 +1,4 @@
-# formacao-full-stack-javascript
+# formacao-full-stack-react-node-js
 Estudos da [Formação Full stack JavaScript: crie um projeto com React e Node.js](https://cursos.alura.com.br/formacao-full-stack-react-node-js) da Alura
 
 ## Cursos
